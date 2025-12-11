@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biología Celular — Ciclo, Mitosis y Meiosis</title>
+  <style>
+    :root{--bg:#f7fbff;--card:#ffffff;--accent:#0b2b6f;--muted:#556085}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#122034;padding:20px}
+    .container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:18px}
+    header h1{margin:0;color:var(--accent)}
+    header p{margin:.3rem 0 1rem;color:var(--muted)}
+    .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 20px rgba(11,43,111,0.06)}
+    .full{grid-column:1/3}
+    h2{color:var(--accent);margin-top:0}
+    ul{margin:8px 0 12px 20px}
+    .phase{border-left:4px solid #dfe9ff;padding:10px;border-radius:6px;background:#fbfdff}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{border:1px solid #e6eef9;padding:8px;text-align:left}
+    th{background:#eaf3ff}
+    /* flashcards */
+    .flashgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .card.flash{cursor:pointer;perspective:800px;height:120px}
+    .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+    .inner.flipped{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;border-radius:8px;background:#fff;border:1px solid #e8f0ff;backface-visibility:hidden}
+    .back{background:#eef6ff;border:1px solid #cfe3ff;transform:rotateY(180deg)}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .small{font-size:13px;padding:6px 10px}
+    /* order game */
+    .tiles{display:flex;flex-wrap:wrap;gap:8px}
+    .tile{padding:10px;border-radius:8px;background:#fff;border:1px solid #d7e3ff;cursor:pointer}
+    .slots{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .slot{flex:1 0 30%; min-height:42px;border:2px dashed #e3eafc;border-radius:8px;background:#fcfeff;display:flex;align-items:center;justify-content:center}
+    .muted{color:var(--muted)}
+    @media(max-width:900px){.container{grid-template-columns:1fr}.full{grid-column:1}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <main>
+      <header class="card">
+        <h1>Biología Celular — Ciclo, Mitosis y Meiosis</h1>
+        <p class="muted">Explicaciones ampliadas y ejercicios interactivos para fijar conceptos.</p>
+      </header>
+
+      <!-- Ciclo celular -->
+      <section class="card">
+        <h2>Ciclo celular (resumen ampliado)</h2>
+        <p>El ciclo celular cubre desde la formación de una célula hasta su siguiente división. Interfase (G0, G1, S, G2) y fase de división (M): mitosis o meiosis.</p>
+        <div class="phase"><strong>Clave:</strong> en la fase S el ADN se replica: cromosomas pasan a tener dos cromátidas hermanas unidas por el centrómero.</div>
+        <h3>Puntos de control</h3>
+        <p class="muted">Los checkpoints en G1, G2 y M regulan la progresión — errores pueden dar lugar a mutaciones o nondisjunction.</p>
+      </section>
+
+      <!-- Mitosis -->
+      <section class="card full" id="mitosis">
+        <h2>Mitosis — fases con detalle</h2>
+        <h3>Profase</h3>
+        <ul>
+          <li>Condensación de cromatina en cromosomas visibles (cada uno con dos cromátidas hermanas).</li>
+          <li>Formación del huso mitótico desde centros organizadores (centriolos en animales).</li>
+          <li>Comienzo de desintegración de la envoltura nuclear; formación de cinetocoros.</li>
+        </ul>
+        <h3>Metafase</h3>
+        <ul>
+          <li>Alineamiento de los cromosomas en la placa metafásica; tensión entre polos confirma orientación correcta.</li>
+        </ul>
+        <h3>Anafase</h3>
+        <ul>
+          <li>Separación de cromátidas hermanas hacia polos opuestos mediante acortamiento de microtúbulos y motores moleculares.</li>
+        </ul>
+        <h3>Telofase y citocinesis</h3>
+        <ul>
+          <li>Descondensación de cromosomas, reformación de envolturas nucleares y división del citoplasma (anillo contráctil o placa celular).</li>
+        </ul>
+      </section>
+
+      <!-- Meiosis -->
+      <section class="card" id="meiosis">
+        <h2>Meiosis — eventos a destacar</h2>
+        <p class="muted">La meiosis consta de dos divisiones consecutivas: I (reductora) y II (ecuatórica). El resultado final son cuatro células haploides, cada una con la mitad del número de cromosomas de la célula original.</p>
+        
+        <h3>División I (reductora)</h3>
+        <ul>
+          <li>Profase I: los cromosomas homólogos se preparan para separarse; el ADN ya está replicado, cada cromosoma tiene dos cromátidas hermanas.</li>
+          <li>Metafase I: los pares de cromosomas homólogos se alinean en el ecuador de la célula.</li>
+          <li>Anafase I: los cromosomas homólogos se separan hacia polos opuestos, pero las cromátidas hermanas permanecen unidas.</li>
+          <li>Telofase I y citocinesis: se forman dos células haploides, cada una con cromosomas aún duplicados (dos cromátidas por cromosoma).</li>
+        </ul>
+
+        <h3>División II (ecuatórica)</h3>
+        <ul>
+          <li>Profase II: preparación de los cromosomas y del huso en cada célula haploide.</li>
+          <li>Metafase II: los cromosomas se alinean individualmente en la placa metafásica.</li>
+          <li>Anafase II: las cromátidas hermanas se separan y migran a polos opuestos.</li>
+          <li>Telofase II y citocinesis: se forman un total de cuatro células haploides, cada una con una copia de cada cromosoma.</li>
+        </ul>
+      </section>
+
+      <!-- Hoja rápida -->
+      <section class="card">
+        <h2>Hoja rápida</h2>
+        <table>
+          <tr><th>Fase</th><th>Evento clave</th></tr>
+          <tr><td>G1</td><td>Crecimiento</td></tr>
+          <tr><td>S</td><td>Replicación del ADN</td></tr>
+          <tr><td>G2</td><td>Preparación</td></tr>
+          <tr><td>Profase</td><td>Condensación y huso</td></tr>
+          <tr><td>Metafase</td><td>Alineamiento</td></tr>
+          <tr><td>Anafase</td><td>Separación cromátidas</td></tr>
+          <tr><td>Telofase</td><td>Reformación nuclear</td></tr>
+          <tr><td>Citocinesis</td><td>División del citoplasma</td></tr>
+        </table>
+      </section>
+    </main>
+
+    <aside>
+      <!-- FLASHCARDS -->
+      <section class="card">
+        <h2>Flashcards</h2>
+        <div class="controls" style="margin-bottom:8px">
+          <button class="btn small" id="shuffleFlash">Barajar</button>
+          <button class="btn small" id="resetFlash">Reiniciar</button>
+          <div id="flashProgress" class="muted" style="margin-left:auto;align-self:center">0/0</div>
+        </div>
+        <div class="flashgrid" id="flashgrid"></div>
+      </section>
+
+      <!-- ORDENAR FASES -->
+      <section class="card" style="margin-top:12px">
+        <h2>Ordena las fases</h2>
+        <p class="muted">Elige mitosis o meiosis:</p>
+        <select id="selectOrder" class="small" style="margin-bottom:6px">
+          <option value="mitosis">Mitosis</option>
+          <option value="meiosis">Meiosis</option>
+        </select>
+        <div class="tiles" id="tiles"></div>
+        <div class="slots" id="slots"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn small" id="resetOrder">Reiniciar</button>
+          <div id="orderFeedback" class="muted" style="margin-left:auto;align-self:center"></div>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
+      <section class="card" style="margin-top:12px">
+        <h2>Quiz interactivo</h2>
+        <div id="quizBox">
+          <div id="question" class="muted">Pulsa comenzar para iniciar el quiz.</div>
+          <div id="answers" style="margin-top:8px;display:flex;gap:8px;flex-direction:column"></div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn small" id="startQuiz">Comenzar</button>
+            <div id="quizScore" class="muted" style="margin-left:auto;align-self:center">0</div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    // ===== FLASHCARDS =====
+    const flashData = [
+      {q:'¿Qué ocurre en la fase S?', a:'Replicación del ADN: cada molécula se duplica.'},
+      {q:'¿Qué separa la anafase I?', a:'Los cromosomas homólogos.'},
+      {q:'Evento clave de profase (mitosis)', a:'Condensación de cromatina y formación del huso.'},
+      {q:'Resultado final de la mitosis', a:'Dos células hijas diploides idénticas.'},
+      {q:'Fase G1', a:'Crecimiento y síntesis de proteínas.'},
+      {q:'Fase G2', a:'Preparación final para la división celular.'},
+      {q:'Telofase', a:'Descondensación de cromosomas y reformación de núcleos.'},
+      {q:'Citocinesis', a:'División del citoplasma.'},
+      {q:'Meiosis produce...', a:'Cuatro células haploides.'},
+      {q:'Profase I (meiosis)', a:'Cromosomas homólogos se preparan para separarse.'},
+      {q:'Metafase I', a:'Pares de cromosomas homólogos alineados en el ecuador.'},
+      {q:'Anafase I', a:'Separación de cromosomas homólogos; cromátidas hermanas permanecen unidas.'},
+      {q:'Telofase I', a:'Formación de dos células haploides con cromosomas duplicados.'},
+      {q:'Profase II', a:'Preparación de cromosomas y huso en células haploides.'},
+      {q:'Metafase II', a:'Cromosomas alineados individualmente en la placa metafásica.'},
+      {q:'Anafase II', a:'Separación de cromátidas hermanas.'},
+      {q:'Telofase II y citocinesis', a:'Formación de cuatro células haploides con una copia de cada cromosoma.'}
+    ];
+
+    const flashgrid = document.getElementById('flashgrid');
+    const flashProgress = document.getElementById('flashProgress');
+    let flashOrder = [];
+
+    function renderFlash(){
+      flashgrid.innerHTML='';
+      let pool = flashData.slice();
+      flashOrder = [];
+      for(let i=0;i<4;i++){
+        if(pool.length===0) break;
+        const idx = Math.floor(Math.random()*pool.length);
+        flashOrder.push(pool[idx]);
+        pool.splice(idx,1);
+      }
+      flashOrder.forEach(f=>{
+        const card = document.createElement('div'); card.className='card flash';
+        const inner = document.createElement('div'); inner.className='inner';
+        const front = document.createElement('div'); front.className='face front'; front.textContent=f.q;
+        const back = document.createElement('div'); back.className='face back'; back.textContent=f.a;
+        inner.appendChild(front); inner.appendChild(back); card.appendChild(inner);
+        card.addEventListener('click',()=>inner.classList.toggle('flipped'));
+        flashgrid.appendChild(card);
+      });
+      flashProgress.textContent = '4/'+flashData.length;
+    }
+    document.getElementById('shuffleFlash').addEventListener('click', renderFlash);
+    document.getElementById('resetFlash').addEventListener('click', renderFlash);
+    renderFlash();
+
+    // ===== ORDENAR FASES =====
+    const mitosis = ['Profase','Metafase','Anafase','Telofase','Citocinesis'];
+    const meiosis = ['Profase I','Metafase I','Anafase I','Telofase I','Profase II','Metafase II','Anafase II','Telofase II','Citocinesis'];
+
+    const tilesEl = document.getElementById('tiles'); 
+    const slotsEl = document.getElementById('slots'); 
+    const orderFeedback = document.getElementById('orderFeedback');
+    let placed = [];
+
+    function initOrder(){
+      const choice = document.getElementById('selectOrder').value;
+      const arr = choice==='mitosis'? mitosis.slice():meiosis.slice();
+      tilesEl.innerHTML=''; slotsEl.innerHTML=''; orderFeedback.textContent=''; 
+      placed = Array(arr.length).fill(null);
+      const shuffled = arr.sort(()=>Math.random()-0.5);
+      shuffled.forEach(t=>{
+        const d = document.createElement('div'); d.className='tile'; d.textContent=t;
+        d.addEventListener('click',()=>placeTile(d));
+        tilesEl.appendChild(d);
+      });
+      for(let i=0;i<arr.length;i++){
+        const s = document.createElement('div'); s.className='slot'; s.dataset.index=i; s.textContent='(vacío)';
+        s.addEventListener('click',()=>removeFromSlot(i));
+        slotsEl.appendChild(s);
+      }
+    }
+
+    function placeTile(tile){
+      const next = placed.indexOf(null); if(next===-1) return;
+      const text = tile.textContent; placed[next]=text; tile.style.visibility='hidden';
+      slotsEl.children[next].textContent = text;
+      checkOrderAuto();
+    }
+    function removeFromSlot(i){
+      const val = placed[i]; if(!val) return;
+      Array.from(tilesEl.children).find(t=>t.textContent===val).style.visibility='visible';
+      placed[i]=null; slotsEl.children[i].textContent='(vacío)'; orderFeedback.textContent='';
+    }
+    function checkOrderAuto(){
+      const choice = document.getElementById('selectOrder').value;
+      const arr = choice==='mitosis'? mitosis:meiosis;
+      if(placed.includes(null)) return;
+      const ok = placed.every((v,i)=>v===arr[i]);
+      orderFeedback.textContent = ok? 'Correcto — las fases están en orden.' : 'Orden incorrecto. Revisa las casillas.';
+      orderFeedback.style.color = ok? 'green':'crimson';
+    }
+
+    document.getElementById('resetOrder').addEventListener('click', initOrder);
+    document.getElementById('selectOrder').addEventListener('change', initOrder);
+    initOrder();
+
+    // ===== QUIZ =====
+    const questionBank = [
+      {q:'¿Cuántas células hijas produce la meiosis?', options:['2','4','1'], correct:1, explain:'La meiosis produce cuatro células haploides.'},
+      {q:'¿En qué fase se alinean los cromosomas en el ecuador?', options:['Profase','Metafase','Telofase'], correct:1, explain:'En metafase los cromosomas se alinean en la placa metafásica.'},
+      {q:'¿Qué ocurre en la fase S?', options:['Replicación del ADN','Separación de cromátidas','Formación de la envoltura nuclear'], correct:0, explain:'En S se replica el ADN.'},
+      {q:'¿Qué separa la anafase I?', options:['Cromátidas hermanas','Cromosomas homólogos','El nucleolo'], correct:1, explain:'En anafase I se separan los cromosomas homólogos.'},
+      {q:'Resultado final de mitosis', options:['1 célula','2 células idénticas','4 células haploides'], correct:1, explain:'La mitosis produce 2 células hijas diploides idénticas.'},
+      {q:'Fase G1', options:['Crecimiento','Replicación','Citocinesis'], correct:0, explain:'G1 es crecimiento y síntesis de proteínas.'},
+      {q:'Fase G2', options:['Preparación','Replicación','Metafase'], correct:0, explain:'G2 es preparación final para división.'},
+      {q:'Telofase', options:['Separación cromátidas','Descondensación y núcleos','Alineamiento cromosomas'], correct:1, explain:'Telofase: descondensación y reformación de núcleos.'},
+      {q:'Citocinesis', options:['División citoplasma','Replicación ADN','Huso mitótico'], correct:0, explain:'Citocinesis: división del citoplasma.'},
+      {q:'Profase I (meiosis)', options:['Cromosomas duplicados','Cromosomas homólogos se preparan','Cromátidas separadas'], correct:1, explain:'Profase I: los cromosomas homólogos se preparan para separarse.'},
+      {q:'Anafase II', options:['Separación homólogos','Separación cromátidas hermanas','Citocinesis'], correct:1, explain:'Anafase II: separación de cromátidas hermanas.'}
+    ];
+
+    let qOrder=[], qIndex=0, score=0;
+    const questionEl=document.getElementById('question');
+    const answersEl=document.getElementById('answers');
+    const startBtn=document.getElementById('startQuiz');
+    const quizScore=document.getElementById('quizScore');
+
+    function startQuiz(){
+      qOrder = questionBank.slice().sort(()=>Math.random()-0.5); 
+      qIndex=0; score=0; quizScore.textContent=score; startBtn.disabled=true; showQuestion();
+    }
+
+    function showQuestion(){
+      const item = qOrder[qIndex];
+      questionEl.textContent=item.q;
+      answersEl.innerHTML='';
+      item.options.forEach((opt,i)=>{
+        const b=document.createElement('button'); b.className='btn small'; b.textContent=opt;
+        b.addEventListener('click',()=>handleAnswer(i));
+        answersEl.appendChild(b);
+      });
+    }
+
+    function handleAnswer(choice){
+      const item=qOrder[qIndex];
+      if(choice===item.correct){ score++; quizScore.textContent=score; qIndex++; nextOrEnd(); }
+      else { answersEl.innerHTML=''; questionEl.textContent='Incorrecto. '+item.explain;
+             qIndex++; setTimeout(nextOrEnd,1400); }
+    }
+
+    function nextOrEnd(){
+      if(qIndex<qOrder.length){ showQuestion(); }
+      else { questionEl.textContent='Quiz completado. Puntuación: '+score+'/'+qOrder.length;
+             answersEl.innerHTML=''; startBtn.disabled=false; }
+    }
+
+    startBtn.addEventListener('click', startQuiz);
+  </script>
+</body>
+</html>
